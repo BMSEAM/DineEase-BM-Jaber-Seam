@@ -1,7 +1,5 @@
-# DineEase
-
+﻿# DineEase
 DineEase is a MERN-stack restaurant reservation and management system for CSE470 Group 9.
-
 ## Sprint 1 Scope
 - Mandatory authentication
 - F01 Restaurant Menu
@@ -12,11 +10,9 @@ DineEase is a MERN-stack restaurant reservation and management system for CSE470
 - F09 Reservation Approval
 - F12 Menu Management
 - F13 Table Management
-
 ## Owner
 - Mushfique Nayeeb Ayon - 23101211
 - GitHub: AyonO1
-
 ## Permanent Branches
 - main: stable sprint submission
 - develop: integrated Sprint 1 work
