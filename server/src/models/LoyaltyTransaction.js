@@ -1,32 +1,22 @@
 import mongoose from 'mongoose';
+import { LOYALTY_TX_TYPE, values } from '../config/constants.js';
 
-const loyaltyTransactionSchema = new mongoose.Schema(
+const { Schema, model } = mongoose;
+
+/**
+ * Ledger of loyalty point movements (F20). `balanceAfter` records the running
+ * balance so the history is auditable without recomputation.
+ */
+const loyaltyTransactionSchema = new Schema(
   {
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-      required: true,
-      index: true,
-    },
-    type: {
-      type: String,
-      enum: ['earn', 'redeem', 'refund'],
-      required: true,
-    },
-    points: {
-      type: Number,
-      required: true,
-    },
-    referenceId: {
-      type: mongoose.Schema.Types.ObjectId,
-      description: 'Can be an Order ID or Refund ID',
-    },
-    description: {
-      type: String,
-      required: true,
-    },
+    customer: { type: Schema.Types.ObjectId, ref: 'User', required: true, index: true },
+    type: { type: String, enum: values(LOYALTY_TX_TYPE), required: true },
+    points: { type: Number, required: true, min: 0 }, // magnitude, always positive
+    balanceAfter: { type: Number, required: true, min: 0 },
+    description: { type: String, default: '' },
+    payment: { type: Schema.Types.ObjectId, ref: 'Payment' },
   },
   { timestamps: true }
 );
 
-export const LoyaltyTransaction = mongoose.model('LoyaltyTransaction', loyaltyTransactionSchema);
+export const LoyaltyTransaction = model('LoyaltyTransaction', loyaltyTransactionSchema);

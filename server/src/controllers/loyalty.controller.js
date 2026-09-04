@@ -1,25 +1,26 @@
 import { asyncHandler } from '../utils/asyncHandler.js';
 import { sendSuccess } from '../utils/apiResponse.js';
-import { ApiError } from '../utils/ApiError.js';
 import { LoyaltyTransaction } from '../models/LoyaltyTransaction.js';
-import { User } from '../models/User.js';
+import { env } from '../config/env.js';
 
-export const getLoyaltyInfo = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user._id);
-  if (!user) throw ApiError.notFound('User not found');
-
-  const history = await LoyaltyTransaction.find({ user: user._id }).sort({ createdAt: -1 });
+/**
+ * F20 — balance, transaction history and redemption rules for the current user.
+ * GET /api/loyalty
+ */
+export const getLoyalty = asyncHandler(async (req, res) => {
+  const transactions = await LoyaltyTransaction.find({ customer: req.user._id })
+    .sort({ createdAt: -1 })
+    .limit(100);
 
   return sendSuccess(res, {
-    message: 'Loyalty information retrieved',
+    message: 'Loyalty details retrieved',
     data: {
-      points: user.loyaltyPoints,
-      history
-    }
+      balance: req.user.loyaltyPoints,
+      transactions,
+      rules: {
+        earnRate: env.loyalty.earnRate,
+        redeemValue: env.loyalty.redeemValue,
+      },
+    },
   });
 });
-
-// For simulated earns, redeems and refunds (usually triggered by Order/Payment controllers)
-// But for demonstration, we'll provide some explicit endpoints if needed by F20 tests, or just keep them internal.
-// Wait, the client only uses `loyaltyApi.get()`!
-// See F05/F16 for actual earning/redeeming logic when payments are made.
