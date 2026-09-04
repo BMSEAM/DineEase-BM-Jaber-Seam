@@ -1,0 +1,23 @@
+{
+  "name": "dineease",
+  "version": "1.0.0",
+  "private": true,
+  "description": "DineEase - Smart Restaurant Reservation & Management System (CSE470, Group 9)",
+  "workspaces": [
+    "server",
+    "client"
+  ],
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
+  "scripts": {
+    "server": "npm --workspace server run dev",
+    "client": "npm --workspace client run dev",
+    "seed": "npm --workspace server run seed",
+    "dev": "concurrently -n server,client -c blue,magenta \"npm run server\" \"npm run client\"",
+    "install:all": "npm install"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}
