@@ -58,4 +58,34 @@ describe('Auth module', () => {
     const res = await request(app).get('/api/auth/me');
     expect(res.status).toBe(401);
   });
+
+  test('blocks login and token access for disabled accounts', async () => {
+    const reg = await request(app).post('/api/auth/register').send(creds);
+    const token = reg.body.data.token;
+    const { User } = await import('../src/models/User.js');
+    await User.updateOne({ email: creds.email }, { isActive: false });
+
+    const loginRes = await request(app)
+      .post('/api/auth/login')
+      .send({ email: creds.email, password: creds.password });
+    expect(loginRes.status).toBe(403);
+    expect(loginRes.body.message).toMatch(/disabled/i);
+
+    const meRes = await request(app)
+      .get('/api/auth/me')
+      .set('Authorization', `Bearer ${token}`);
+    expect(meRes.status).toBe(403);
+  });
+
+  test('blocks wrong-role users on role-protected routes', async () => {
+    const reg = await request(app).post('/api/auth/register').send(creds);
+    const customerToken = reg.body.data.token;
+
+    // Customer attempting to access admin-only endpoint
+    const adminRes = await request(app)
+      .get('/api/admin/dashboard')
+      .set('Authorization', `Bearer ${customerToken}`);
+    expect(adminRes.status).toBe(403);
+  });
 });
+

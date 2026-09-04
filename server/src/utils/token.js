@@ -1,18 +1,18 @@
-﻿// JWT Token utilities for authentication
-const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
+import { env } from '../config/env.js';
 
-const generateToken = (userId) => {
-  return jwt.sign({ userId }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRY || '7d'
-  });
+export function signToken(payload) {
+  return jwt.sign(payload, env.jwtSecret, { expiresIn: env.jwtExpiresIn });
+}
+
+export function verifyToken(token) {
+  return jwt.verify(token, env.jwtSecret);
+}
+
+/** Standard cookie options for the JWT auth cookie. */
+export const cookieOptions = {
+  httpOnly: true,
+  sameSite: 'lax',
+  secure: env.isProd,
+  maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
 };
-
-const verifyToken = (token) => {
-  try {
-    return jwt.verify(token, process.env.JWT_SECRET);
-  } catch (error) {
-    return null;
-  }
-};
-
-module.exports = { generateToken, verifyToken };
