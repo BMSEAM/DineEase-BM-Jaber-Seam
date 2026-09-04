@@ -4,53 +4,41 @@ import { ApiError } from '../utils/ApiError.js';
 import { Favourite } from '../models/Favourite.js';
 import { MenuItem } from '../models/MenuItem.js';
 
-// GET /api/favourites (protected)
-export const getFavourites = asyncHandler(async (req, res) => {
-  const favourites = await Favourite.find({ user: req.user._id })
-    .populate({
-      path: 'menuItem',
-      populate: { path: 'category', select: 'name' }
-    })
+/**
+ * F06 Favourite Menu Items. Add / remove / list a customer's favourites.
+ */
+
+// GET /api/favourites
+export const listFavourites = asyncHandler(async (req, res) => {
+  const favourites = await Favourite.find({ customer: req.user._id })
+    .populate({ path: 'menuItem', populate: { path: 'category', select: 'name' } })
     .sort({ createdAt: -1 });
-
-  // Filter out any null menuItems (if a menu item was deleted)
-  const validFavourites = favourites.filter(fav => fav.menuItem != null);
-
-  return sendSuccess(res, {
-    message: 'Favourites retrieved',
-    data: validFavourites
-  });
+  // Filter out any dangling favourites whose menu item was deleted.
+  const data = favourites.filter((f) => f.menuItem);
+  return sendSuccess(res, { message: 'Favourites retrieved', data });
 });
 
-// POST /api/favourites (protected)
+// POST /api/favourites  { menuItem }
 export const addFavourite = asyncHandler(async (req, res) => {
   const { menuItem } = req.body;
-  if (!menuItem) throw ApiError.badRequest('Menu item ID is required');
+  const item = await MenuItem.findById(menuItem);
+  if (!item) throw ApiError.notFound('Menu item not found');
 
-  const itemExists = await MenuItem.findById(menuItem);
-  if (!itemExists) throw ApiError.notFound('Menu item not found');
-
-  const existing = await Favourite.findOne({ user: req.user._id, menuItem });
-  if (existing) throw ApiError.badRequest('Already in favourites');
-
-  const fav = await Favourite.create({ user: req.user._id, menuItem });
-
-  return sendSuccess(res, {
-    message: 'Added to favourites',
-    data: fav,
-    statusCode: 201
-  });
+  try {
+    const fav = await Favourite.create({ customer: req.user._id, menuItem });
+    return sendSuccess(res, { statusCode: 201, message: 'Added to favourites', data: fav });
+  } catch (err) {
+    if (err.code === 11000) throw ApiError.conflict('Already in your favourites');
+    throw err;
+  }
 });
 
-// DELETE /api/favourites/:menuItemId (protected)
+// DELETE /api/favourites/:menuItemId
 export const removeFavourite = asyncHandler(async (req, res) => {
-  const { menuItemId } = req.params;
-
-  const fav = await Favourite.findOneAndDelete({ user: req.user._id, menuItem: menuItemId });
-  if (!fav) throw ApiError.notFound('Favourite not found');
-
-  return sendSuccess(res, {
-    message: 'Removed from favourites',
-    data: fav
+  const removed = await Favourite.findOneAndDelete({
+    customer: req.user._id,
+    menuItem: req.params.menuItemId,
   });
+  if (!removed) throw ApiError.notFound('Favourite not found');
+  return sendSuccess(res, { message: 'Removed from favourites', data: { id: removed._id } });
 });

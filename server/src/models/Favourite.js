@@ -1,23 +1,19 @@
 import mongoose from 'mongoose';
 
-const favouriteSchema = new mongoose.Schema(
+const { Schema, model } = mongoose;
+
+/**
+ * Join collection implementing the many-to-many between User and MenuItem (F06).
+ * Compound unique index stops a dish being favourited twice by the same user.
+ */
+const favouriteSchema = new Schema(
   {
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-      required: true,
-      index: true,
-    },
-    menuItem: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'MenuItem',
-      required: true,
-    },
+    customer: { type: Schema.Types.ObjectId, ref: 'User', required: true, index: true },
+    menuItem: { type: Schema.Types.ObjectId, ref: 'MenuItem', required: true },
   },
   { timestamps: true }
 );
 
-// Prevent duplicate favourites for the same user and item
-favouriteSchema.index({ user: 1, menuItem: 1 }, { unique: true });
+favouriteSchema.index({ customer: 1, menuItem: 1 }, { unique: true });
 
-export const Favourite = mongoose.model('Favourite', favouriteSchema);
+export const Favourite = model('Favourite', favouriteSchema);

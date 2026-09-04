@@ -1,28 +1,66 @@
-﻿// Reservation Tests
-const { checkAvailability, createReservation } = require('../services/reservation.service');
+import { jest } from '@jest/globals';
+import request from 'supertest';
+import { connectTestDB, clearTestDB, closeTestDB } from './setup.js';
+import { createApp } from '../src/app.js';
+import { RestaurantTable } from '../src/models/RestaurantTable.js';
 
-describe('Reservation Service', () => {
-  test('should check availability for a table', async () => {
-    const available = await checkAvailability('table123', new Date(), '18:00', '20:00');
-    expect(typeof available).toBe('boolean');
-  });
+let app;
 
-  test('should create a new reservation', async () => {
-    const reservationData = {
-      customerId: 'customer123',
-      tableId: 'table123',
-      reservationDate: new Date(),
-      startTime: '18:00',
-      endTime: '20:00',
-      guestCount: 4
+beforeAll(async () => {
+  await connectTestDB();
+  app = createApp();
+});
+afterEach(clearTestDB);
+afterAll(closeTestDB);
+
+async function registerCustomer() {
+  const res = await request(app)
+    .post('/api/auth/register')
+    .send({ name: 'Cust', email: `c${Date.now()}@d.com`, password: 'secret123' });
+  return res.body.data.token;
+}
+
+// A future date string (tomorrow) to keep reservations valid.
+function tomorrow() {
+  const d = new Date();
+  d.setDate(d.getDate() + 1);
+  return d.toISOString().slice(0, 10);
+}
+
+describe('Reservations (F03) — double booking prevention', () => {
+  test('prevents overlapping reservations on the same table', async () => {
+    const token = await registerCustomer();
+    const table = await RestaurantTable.create({ tableNumber: 'X1', capacity: 4 });
+
+    const payload = {
+      table: table._id.toString(),
+      date: tomorrow(),
+      startTime: '19:00',
+      guests: 2,
     };
-    const reservation = await createReservation(reservationData);
-    expect(reservation).toBeDefined();
+
+    const first = await request(app)
+      .post('/api/reservations')
+      .set('Authorization', `Bearer ${token}`)
+      .send(payload);
+    expect(first.status).toBe(201);
+
+    // Overlapping window (default duration 90 min) -> conflict.
+    const second = await request(app)
+      .post('/api/reservations')
+      .set('Authorization', `Bearer ${token}`)
+      .send({ ...payload, startTime: '19:30' });
+    expect(second.status).toBe(409);
   });
 
-  test('should prevent double booking', async () => {
-    // Simulate double booking prevention
-    const available = await checkAvailability('table123', new Date(), '18:00', '20:00');
-    expect(available).toBe(false);
+  test('rejects guests exceeding table capacity', async () => {
+    const token = await registerCustomer();
+    const table = await RestaurantTable.create({ tableNumber: 'X2', capacity: 2 });
+    const res = await request(app)
+      .post('/api/reservations')
+      .set('Authorization', `Bearer ${token}`)
+      .send({ table: table._id.toString(), date: tomorrow(), startTime: '12:00', guests: 5 });
+    expect(res.status).toBe(400);
   });
 });
+
