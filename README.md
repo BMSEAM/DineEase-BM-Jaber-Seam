@@ -12,9 +12,10 @@ DineEase provides a complete solution for restaurant management, handling everyt
 - **Node.js**: JavaScript runtime environment
 
 ## User Roles
-The application supports three distinct user roles:
+The application supports four distinct user roles:
 - **Customer**: Can view menus, make reservations, pre-order food, pay digitally, and manage their loyalty points.
-- **Staff**: Can view and manage active orders, track table availability, handle cleaning tasks, and approve/reject reservations.
+- **Waiter**: Can view and manage active orders, track table availability, and approve/reject reservations.
+- **Cleaner**: Can manage and track table cleaning tasks.
 - **Admin**: Has full control over the system, including menu management, table configuration, staff management, refund processing, and viewing comprehensive reports.
 
 ## Features (F01-F20)
@@ -26,10 +27,10 @@ The application supports three distinct user roles:
 - **F05 Pre-order Food**: Add food items to a reservation before arriving.
 - **F06 Favourite Menu Items**: Customers can save their favorite food items.
 - **F07 Reviews & Ratings**: Customers can review and rate their dining experience.
-- **F08 Table Availability**: Real-time view of which tables are currently occupied or reserved.
-- **F09 Reservation Approval**: Staff can approve or reject incoming reservations.
-- **F10 Order Status Tracking**: Track the status of orders in real-time.
-- **F11 Notifications**: Real-time alerts for reservation status changes and order updates.
+- **F08 Table Availability**: Regularly polled (15-20s) status of tables to show current occupancy.
+- **F09 Reservation Approval**: Waiters can review, approve, or reject incoming table reservations.
+- **F10 Order Status Tracking**: Customers can track the progress of their food orders (Preparing, Ready, Served).
+- **F11 Notifications**: Regularly polled (15-20s) in-site notifications for order updates and reservation status changes.
 - **F12 Menu Management**: Admins can add, edit, or remove menu items.
 - **F13 Table Management**: Admins can configure table layouts and capacities.
 - **F14 Staff Management**: Admins can manage staff accounts and roles.
@@ -46,24 +47,41 @@ The project uses a monorepo structure managed via npm workspaces:
 - `server/`: Express backend API
 - `docs/diagrams/`: See the [System Architecture Diagram](docs/diagrams/system-architecture.md) for the data flow pipeline.
 
+## Prerequisites
+- **Node.js**: `^20.19 || >=22.12`
+- **MongoDB**: A running local or cloud instance.
+
 ## Installation & Setup
-1. Clone the repository
-2. Install dependencies for all workspaces:
+1. MongoDB must be running locally (or a MONGO_URI configured).
+2. Node `^20.19.0 || >=22.12.0` (already enforced in package.json engines).
+3. Copy environment files for all scopes:
+   ```bash
+   cp .env.example .env
+   cp server/.env.example server/.env
+   cp client/.env.example client/.env
+   ```
+4. Install dependencies for all workspaces:
    ```bash
    npm install
    ```
+5. Seed the database with initial data:
+   ```bash
+   npm run seed
+   ```
+6. Run the development server:
+   ```bash
+   npm run dev
+   ```
 
-## Environment Setup
-Create a `.env` file in the `server` directory using the provided example:
-```bash
-cp server/.env.example server/.env
-```
-Ensure you configure the MongoDB URI and JWT secrets in the `.env` file.
+### Test Accounts
+The following accounts are created by the seeding script (Password for all is `password123`):
 
-Create a `.env` file in the `client` directory using the provided example:
-```bash
-cp client/.env.example client/.env
-```
+| Name | Email | Role |
+|------|-------|------|
+| DineEase Admin | admin@dineease.com | admin |
+| Wade Waiter | waiter@dineease.com | waiter |
+| Clara Cleaner | cleaner@dineease.com | cleaner |
+| Cathy Customer | customer@dineease.com | customer |
 
 ## Running the Application
 **Backend:**
@@ -92,10 +110,12 @@ npm --workspace client run build
 
 | Member | GitHub Username | Features Assigned | Percentage | Branch / PR Evidence | Commit Evidence |
 |--------|-----------------|-------------------|------------|----------------------|-----------------|
-| **Provat Saha Pranto** | `provatsahanobo` | F01, F02, F06, F07, F20 | 25% | PR #35, PR #36, PR #40, PR #44, PR #45 | `a3c6c38`, `8ad75c5`, `553a265`, `d32ead2`, `4219fde` |
-| **Mushfique Nayeeb Ayon** | `AyonO1` | F03, F04, F05, F16, F17, Auth Backend | 25% | PR #19, PR #21, PR #23, PR #25, PR #27, PR #17 | `1a5eff0`, `1ae7039`, `b1b8340`, `f956cfe`, `24a49ba`, `3f4e257` |
-| **Noor-E-Jannat** | `Noor-E-Jannat20` | F08, F09, F10, F11, F15 | 25% | PR #38, PR #39, PR #41, PR #42, PR #43 | `846020a`, `3b5d296`, `9bb859a`, `872379e`, `8e8c40c` |
-| **B.M. Jaber Seam** | `bmjaberseam-spec` | F12, F13, F14, F18, F19, Auth Models | 25% | PR #29, PR #30, PR #31, PR #32, PR #33, PR #28 | `2aaa9fe`, `de54d65`, `be21f5d`, `c757546`, `25c8f25`, `cdb2b50` |
+| Member | GitHub Username | Features Assigned | Percentage | Branch / PR Evidence | Commit Evidence |
+|--------|-----------------|-------------------|------------|----------------------|-----------------|
+| **Provat Saha Pranto** | `provatsahanobo` | F01, F02, F06, F07, F20 | | | |
+| **Mushfique Nayeeb Ayon** | `AyonO1` | F03, F04, F05, F16, F17, Auth Backend | | | |
+| **Noor-E-Jannat** | `Noor-E-Jannat20` | F08, F09, F10, F11, F15 | | | |
+| **B.M. Jaber Seam** | `bmjaberseam-spec` | F12, F13, F14, F18, F19, Auth Models | | | |
 
 ## Current Release
 **Version**: v1.0 (Final Release)
