@@ -27,10 +27,10 @@ The application supports four distinct user roles:
 - **F05 Pre-order Food**: Add food items to a reservation before arriving.
 - **F06 Favourite Menu Items**: Customers can save their favorite food items.
 - **F07 Reviews & Ratings**: Customers can review and rate their dining experience.
-- **F08 Table Availability**: Real-time view of which tables are currently occupied or reserved.
-- **F09 Reservation Approval**: Staff can approve or reject incoming reservations.
-- **F10 Order Status Tracking**: Track the status of orders in real-time.
-- **F11 Notifications**: Real-time alerts for reservation status changes and order updates.
+- **F08 Table Availability**: Regularly polled (15-20s) status of tables to show current occupancy.
+- **F09 Reservation Approval**: Waiters can review, approve, or reject incoming table reservations.
+- **F10 Order Status Tracking**: Customers can track the progress of their food orders (Preparing, Ready, Served).
+- **F11 Notifications**: Regularly polled (15-20s) in-site notifications for order updates and reservation status changes.
 - **F12 Menu Management**: Admins can add, edit, or remove menu items.
 - **F13 Table Management**: Admins can configure table layouts and capacities.
 - **F14 Staff Management**: Admins can manage staff accounts and roles.
