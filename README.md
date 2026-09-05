@@ -80,6 +80,7 @@ To run the backend test suite:
 ```bash
 npm --workspace server test
 ```
+**Status:** Verified to pass all 75 tests across 6 test suites.
 
 To verify the frontend production build:
 ```bash
@@ -87,10 +88,13 @@ npm --workspace client run build
 ```
 
 ## Team Contribution Summary
-- **Mushfique Nayeeb Ayon (AyonO1)**: Project Owner, Authentication backend, Table Reservation (F03), Reservation History (F04), Pre-order Food (F05), Digital Payment (F16), Digital Invoice (F17), Final Project Integration.
-- **Provat Saha Pranto (provatsahanobo)**: Restaurant Menu (F01), Search & Filter (F02), Favourite Menu Items (F06), Reviews & Ratings (F07), Loyalty Points (F20).
-- **Noor-E-Jannat (Noor-E-Jannat20)**: Table Availability (F08), Reservation Approval (F09), Order Status Tracking (F10), Notifications (F11), Table Cleaning Workflow (F15).
-- **B.M. Jaber Seam (bmjaberseam-spec)**: Auth User Models, Menu Management (F12), Table Management (F13), Staff Management (F14), Admin Dashboard (F18), Reports (F19).
+
+| Member | GitHub Username | Features Assigned | Percentage | Branch / PR Evidence | Commit Evidence |
+|--------|-----------------|-------------------|------------|----------------------|-----------------|
+| **Provat Saha Pranto** | `provatsahanobo` | F01, F02, F06, F07, F20 | | | |
+| **Mushfique Nayeeb Ayon** | `AyonO1` | F03, F04, F05, F16, F17, Auth Backend | | | |
+| **Noor-E-Jannat** | `Noor-E-Jannat20` | F08, F09, F10, F11, F15 | | | |
+| **B.M. Jaber Seam** | `bmjaberseam-spec` | F12, F13, F14, F18, F19, Auth Models | | | |
 
 ## Current Release
 **Version**: v1.0 (Final Release)

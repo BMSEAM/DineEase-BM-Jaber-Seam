@@ -40,7 +40,7 @@ The application supports three distinct user roles with specific access levels:
 - **F13 Table Management**: Admins can configure the restaurant's table layout, capacity, and availability.
 - **F14 Staff Management**: Admins can create new staff accounts, manage roles, and deactivate accounts.
 - **F15 Table Cleaning Workflow**: Staff can view, manage, and track table cleaning tasks to ensure tables are ready for new guests.
-- **F16 Digital Payment**: Customers can securely pay for their orders and reservations through a simulated digital payment gateway.
+- **F16 Digital Payment**: Customers can securely pay for their orders and reservations through a simulated digital payment gateway. Includes a refund extension sub-requirement for processing cancellations.
 - **F17 Digital Invoice**: The system automatically generates and provides a digital invoice for customers after successful payments.
 - **F18 Admin Dashboard**: Admins have a high-level overview dashboard displaying key restaurant metrics and daily activities.
 - **F19 Reports**: Admins can generate and view detailed reports on sales, reservations, and operational performance.
@@ -73,5 +73,34 @@ The application supports three distinct user roles with specific access levels:
 - Digital Payments (F16) must remain a simulated workflow without integrating an actual external payment gateway like SSLCommerz.
 
 ## 8. Assumptions
-- Users have access to a modern web browser and a stable internet connection.
 - The restaurant operates in a single timezone.
+
+## 9. Revision History
+**Version**: v0.9 (Pre-Final Draft)
+**Changes**: Updated testing requirements, added refund extensions, and populated screenshot structure.
+
+## 10. System Interfaces (Screenshots)
+Please insert the captured screenshots for each feature below:
+- **[F01]** Restaurant Menu: `[Insert F01_screenshot.png]`
+- **[F02]** Search and Filter: `[Insert F02_screenshot.png]`
+- **[F03]** Table Reservation: `[Insert F03_screenshot.png]`
+- **[F04]** Reservation History: `[Insert F04_screenshot.png]`
+- **[F05]** Pre-order Food: `[Insert F05_screenshot.png]`
+- **[F06]** Favourite Menu Items: `[Insert F06_screenshot.png]`
+- **[F07]** Reviews & Ratings: `[Insert F07_screenshot.png]`
+- **[F08]** Table Availability: `[Insert F08_screenshot.png]`
+- **[F09]** Reservation Approval: `[Insert F09_screenshot.png]`
+- **[F10]** Order Status Tracking: `[Insert F10_screenshot.png]`
+- **[F11]** Notifications: `[Insert F11_screenshot.png]`
+- **[F12]** Menu Management: `[Insert F12_screenshot.png]`
+- **[F13]** Table Management: `[Insert F13_screenshot.png]`
+- **[F14]** Staff Management: `[Insert F14_screenshot.png]`
+- **[F15]** Table Cleaning Workflow: `[Insert F15_screenshot.png]`
+- **[F16]** Digital Payment: `[Insert F16_screenshot.png]`
+- **[F17]** Digital Invoice: `[Insert F17_screenshot.png]`
+- **[F18]** Admin Dashboard: `[Insert F18_screenshot.png]`
+- **[F19]** Reports: `[Insert F19_screenshot.png]`
+- **[F20]** Loyalty Points: `[Insert F20_screenshot.png]`
+
+## 11. Testing
+The application has 5 core test suites (Authentication, Reservations, Reservation History, Defects, Integrity, Refund). All 75 tests are currently passing. See `TESTING.md` for full test plan details.
