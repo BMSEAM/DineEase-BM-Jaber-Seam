@@ -52,34 +52,36 @@ The project uses a monorepo structure managed via npm workspaces:
 - **MongoDB**: A running local or cloud instance.
 
 ## Installation & Setup
-1. Clone the repository
-2. Install dependencies for all workspaces:
+1. MongoDB must be running locally (or a MONGO_URI configured).
+2. Node `^20.19.0 || >=22.12.0` (already enforced in package.json engines).
+3. Copy environment files for all scopes:
+   ```bash
+   cp .env.example .env
+   cp server/.env.example server/.env
+   cp client/.env.example client/.env
+   ```
+4. Install dependencies for all workspaces:
    ```bash
    npm install
    ```
+5. Seed the database with initial data:
+   ```bash
+   npm run seed
+   ```
+6. Run the development server:
+   ```bash
+   npm run dev
+   ```
 
-## Environment Setup
-Create a `.env` file in the `server` directory using the provided example:
-```bash
-cp server/.env.example server/.env
-```
-Ensure you configure the MongoDB URI and JWT secrets in the `.env` file.
+### Test Accounts
+The following accounts are created by the seeding script (Password for all is `password123`):
 
-Create a `.env` file in the `client` directory using the provided example:
-```bash
-cp client/.env.example client/.env
-```
-
-## Seeding the Database
-To populate the database with initial users, menus, and tables for the demo:
-```bash
-npm run seed --workspace server
-```
-**Test Account Credentials (Password for all is `password123`):**
-- admin@dineease.com
-- waiter@dineease.com
-- cleaner@dineease.com
-- customer@dineease.com
+| Name | Email | Role |
+|------|-------|------|
+| DineEase Admin | admin@dineease.com | admin |
+| Wade Waiter | waiter@dineease.com | waiter |
+| Clara Cleaner | cleaner@dineease.com | cleaner |
+| Cathy Customer | customer@dineease.com | customer |
 
 ## Running the Application
 **Backend:**
