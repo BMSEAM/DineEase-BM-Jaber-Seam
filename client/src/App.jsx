@@ -58,13 +58,13 @@ export default function App() {
         <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
 
         {/* Customer */}
-        <Route path="/reservations" element={<ProtectedRoute><ReservationsPage /></ProtectedRoute>} />
-        <Route path="/orders" element={<ProtectedRoute><OrdersPage /></ProtectedRoute>} />
-        <Route path="/favourites" element={<ProtectedRoute><FavouritesPage /></ProtectedRoute>} />
-        <Route path="/reviews" element={<ProtectedRoute><ReviewsPage /></ProtectedRoute>} />
-        <Route path="/invoices" element={<ProtectedRoute><InvoicesPage /></ProtectedRoute>} />
-        <Route path="/invoices/:id" element={<ProtectedRoute><InvoiceDetailPage /></ProtectedRoute>} />
-        <Route path="/loyalty" element={<ProtectedRoute><LoyaltyPage /></ProtectedRoute>} />
+        <Route path="/reservations" element={<RoleRoute roles={[ROLES.CUSTOMER]}><ReservationsPage /></RoleRoute>} />
+        <Route path="/orders" element={<RoleRoute roles={[ROLES.CUSTOMER]}><OrdersPage /></RoleRoute>} />
+        <Route path="/favourites" element={<RoleRoute roles={[ROLES.CUSTOMER]}><FavouritesPage /></RoleRoute>} />
+        <Route path="/reviews" element={<RoleRoute roles={[ROLES.CUSTOMER]}><ReviewsPage /></RoleRoute>} />
+        <Route path="/invoices" element={<RoleRoute roles={[ROLES.CUSTOMER]}><InvoicesPage /></RoleRoute>} />
+        <Route path="/invoices/:id" element={<RoleRoute roles={[ROLES.CUSTOMER]}><InvoiceDetailPage /></RoleRoute>} />
+        <Route path="/loyalty" element={<RoleRoute roles={[ROLES.CUSTOMER]}><LoyaltyPage /></RoleRoute>} />
 
         {/* Staff / Admin */}
         <Route path="/staff/reservations" element={<RoleRoute roles={staff}><ReservationApprovals /></RoleRoute>} />

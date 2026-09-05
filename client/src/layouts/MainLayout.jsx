@@ -159,6 +159,9 @@ export default function MainLayout() {
 }
 
 function SiteFooter() {
+  const { user } = useAuth();
+  const isCustomer = user?.role === 'customer';
+  
   return (
     <footer className="site-footer no-print">
       <div className="footer-inner">
@@ -173,9 +176,13 @@ function SiteFooter() {
         <div>
           <h4>Explore</h4>
           <Link to="/menu">Menu</Link>
-          <Link to="/reservations">Reservations</Link>
-          <Link to="/orders">Orders</Link>
-          <Link to="/reviews">Reviews</Link>
+          {isCustomer && (
+            <>
+              <Link to="/reservations">Reservations</Link>
+              <Link to="/orders">Orders</Link>
+              <Link to="/reviews">Reviews</Link>
+            </>
+          )}
         </div>
         <div>
           <h4>Visit us</h4>
