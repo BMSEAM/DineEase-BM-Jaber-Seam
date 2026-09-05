@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 import { env } from './env.js';
-import { runSeed } from '../seed/seed.js';
 
 let memoryServer = null;
 
