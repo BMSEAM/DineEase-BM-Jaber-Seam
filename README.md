@@ -20,25 +20,25 @@ The application supports three distinct user roles:
 ## Features (F01-F20)
 - **Authentication**: Secure JWT-based login, registration, and role-based access control.
 - **F01 Restaurant Menu**: View available food items.
-- **F02 Search and Filter Menu**: Find specific food items by category or keyword.
+- **F02 Search and Filter**: Find specific food items by category or keyword.
 - **F03 Table Reservation**: Book tables for specific dates and times.
 - **F04 Reservation History**: View past and upcoming reservations.
 - **F05 Pre-order Food**: Add food items to a reservation before arriving.
-- **F06 Order Management**: Staff can manage food orders.
-- **F07 Order Tracking**: Track the status of orders in real-time.
-- **F08 Real-time Table Availability**: View which tables are currently occupied or reserved.
+- **F06 Favourite Menu Items**: Customers can save their favorite food items.
+- **F07 Reviews & Ratings**: Customers can review and rate their dining experience.
+- **F08 Table Availability**: Real-time view of which tables are currently occupied or reserved.
 - **F09 Reservation Approval**: Staff can approve or reject incoming reservations.
-- **F10 Cleaning Schedule**: Manage and track table cleaning tasks for staff.
-- **F11 Real-time Notifications**: Alerts for reservation status changes and order updates.
+- **F10 Order Status Tracking**: Track the status of orders in real-time.
+- **F11 Notifications**: Real-time alerts for reservation status changes and order updates.
 - **F12 Menu Management**: Admins can add, edit, or remove menu items.
 - **F13 Table Management**: Admins can configure table layouts and capacities.
 - **F14 Staff Management**: Admins can manage staff accounts and roles.
-- **F15 Refund Management**: Admins can process refunds for cancelled reservations or orders.
+- **F15 Table Cleaning Workflow**: Manage and track table cleaning tasks for staff.
 - **F16 Digital Payment**: Simulated secure digital payment integration.
 - **F17 Digital Invoice**: Automated invoice generation after successful payments.
 - **F18 Admin Dashboard**: High-level overview of restaurant metrics and daily activities.
 - **F19 Reports**: Detailed reporting on sales, reservations, and operational performance.
-- **F20 Loyalty Program**: Customers earn and spend points based on their orders.
+- **F20 Loyalty Points**: Customers earn and spend points based on their orders.
 
 ## Project Structure
 The project uses a monorepo structure managed via npm workspaces:
@@ -88,9 +88,9 @@ npm --workspace client run build
 
 ## Team Contribution Summary
 - **Mushfique Nayeeb Ayon (AyonO1)**: Project Owner, Authentication backend, Table Reservation (F03), Reservation History (F04), Pre-order Food (F05), Digital Payment (F16), Digital Invoice (F17), Final Project Integration.
-- **Provat Saha (provatsahanobo)**: Auth Frontend, Menu Management (F12), Staff Management (F14), Refund Management (F15), Admin Dashboard (F18), Reports (F19).
-- **Noor-E-Jannat20**: Restaurant Menu (F01), Search & Filter (F02), Order Management (F06), Order Tracking (F07), Reservation Approval (F09), Real-time Notifications (F11).
-- **Bm Jaber Seam (bmjaberseam-spec)**: Auth User Models, Table Availability (F08), Cleaning Schedule (F10), Table Management (F13), Loyalty Program (F20).
+- **Provat Saha Pranto (provatsahanobo)**: Restaurant Menu (F01), Search & Filter (F02), Favourite Menu Items (F06), Reviews & Ratings (F07), Loyalty Points (F20).
+- **Noor-E-Jannat (Noor-E-Jannat20)**: Table Availability (F08), Reservation Approval (F09), Order Status Tracking (F10), Notifications (F11), Table Cleaning Workflow (F15).
+- **B.M. Jaber Seam (bmjaberseam-spec)**: Auth User Models, Menu Management (F12), Table Management (F13), Staff Management (F14), Admin Dashboard (F18), Reports (F19).
 
 ## Current Release
 **Version**: v1.0 (Final Release)
