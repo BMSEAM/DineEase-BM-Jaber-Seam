@@ -108,10 +108,12 @@ npm --workspace client run build
 
 | Member | GitHub Username | Features Assigned | Percentage | Branch / PR Evidence | Commit Evidence |
 |--------|-----------------|-------------------|------------|----------------------|-----------------|
-| **Provat Saha Pranto** | `provatsahanobo` | F01, F02, F06, F07, F20 | 25% | PR #35, PR #36, PR #40, PR #44, PR #45 | `a3c6c38`, `8ad75c5`, `553a265`, `d32ead2`, `4219fde` |
-| **Mushfique Nayeeb Ayon** | `AyonO1` | F03, F04, F05, F16, F17, Auth Backend | 25% | PR #19, PR #21, PR #23, PR #25, PR #27, PR #17 | `1a5eff0`, `1ae7039`, `b1b8340`, `f956cfe`, `24a49ba`, `3f4e257` |
-| **Noor-E-Jannat** | `Noor-E-Jannat20` | F08, F09, F10, F11, F15 | 25% | PR #38, PR #39, PR #41, PR #42, PR #43 | `846020a`, `3b5d296`, `9bb859a`, `872379e`, `8e8c40c` |
-| **B.M. Jaber Seam** | `bmjaberseam-spec` | F12, F13, F14, F18, F19, Auth Models | 25% | PR #29, PR #30, PR #31, PR #32, PR #33, PR #28 | `2aaa9fe`, `de54d65`, `be21f5d`, `c757546`, `25c8f25`, `cdb2b50` |
+| Member | GitHub Username | Features Assigned | Percentage | Branch / PR Evidence | Commit Evidence |
+|--------|-----------------|-------------------|------------|----------------------|-----------------|
+| **Provat Saha Pranto** | `provatsahanobo` | F01, F02, F06, F07, F20 | | | |
+| **Mushfique Nayeeb Ayon** | `AyonO1` | F03, F04, F05, F16, F17, Auth Backend | | | |
+| **Noor-E-Jannat** | `Noor-E-Jannat20` | F08, F09, F10, F11, F15 | | | |
+| **B.M. Jaber Seam** | `bmjaberseam-spec` | F12, F13, F14, F18, F19, Auth Models | | | |
 
 ## Current Release
 **Version**: v1.0 (Final Release)
