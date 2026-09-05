@@ -12,9 +12,10 @@ DineEase provides a complete solution for restaurant management, handling everyt
 - **Node.js**: JavaScript runtime environment
 
 ## User Roles
-The application supports three distinct user roles:
+The application supports four distinct user roles:
 - **Customer**: Can view menus, make reservations, pre-order food, pay digitally, and manage their loyalty points.
-- **Staff**: Can view and manage active orders, track table availability, handle cleaning tasks, and approve/reject reservations.
+- **Waiter**: Can view and manage active orders, track table availability, and approve/reject reservations.
+- **Cleaner**: Can manage and track table cleaning tasks.
 - **Admin**: Has full control over the system, including menu management, table configuration, staff management, refund processing, and viewing comprehensive reports.
 
 ## Features (F01-F20)
@@ -46,6 +47,10 @@ The project uses a monorepo structure managed via npm workspaces:
 - `server/`: Express backend API
 - `docs/diagrams/`: See the [System Architecture Diagram](docs/diagrams/system-architecture.md) for the data flow pipeline.
 
+## Prerequisites
+- **Node.js**: `^20.19 || >=22.12`
+- **MongoDB**: A running local or cloud instance.
+
 ## Installation & Setup
 1. Clone the repository
 2. Install dependencies for all workspaces:
@@ -64,6 +69,17 @@ Create a `.env` file in the `client` directory using the provided example:
 ```bash
 cp client/.env.example client/.env
 ```
+
+## Seeding the Database
+To populate the database with initial users, menus, and tables for the demo:
+```bash
+npm run seed --workspace server
+```
+**Test Account Credentials (Password for all is `password123`):**
+- admin@dineease.com
+- waiter@dineease.com
+- cleaner@dineease.com
+- customer@dineease.com
 
 ## Running the Application
 **Backend:**
