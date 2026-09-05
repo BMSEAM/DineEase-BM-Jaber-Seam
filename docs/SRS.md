@@ -46,40 +46,43 @@ The application supports three distinct user roles with specific access levels:
 - **F19 Reports**: Admins can generate and view detailed reports on sales, reservations, and operational performance.
 - **F20 Loyalty Points**: Customers earn loyalty points based on their spending and can redeem them for discounts on future orders.
 
-## 5. Non-Functional Requirements
+## 5. System Architecture
+Please see the [System Architecture Diagram](diagrams/system-architecture.md) for a complete overview of the application pipeline.
 
-### 5.1 Performance
+## 6. Non-Functional Requirements
+
+### 6.1 Performance
 - The application should respond to user interactions and API requests promptly.
 - Real-time features (like Table Availability and Notifications) must update with minimal latency.
 
-### 5.2 Security
+### 6.2 Security
 - Passwords must be hashed (using bcrypt) before being stored in the database.
 - Environment variables (like `JWT_SECRET` and `MONGODB_URI`) must be securely managed and never committed to version control.
 - API endpoints must validate input data to prevent injection attacks.
 
-### 5.3 Reliability
+### 6.3 Reliability
 - The system should safely handle errors and provide meaningful feedback to users without crashing the application.
 
-## 6. Data Requirements
+## 7. Data Requirements
 - **User Data**: Must securely store user credentials, contact information, and role assignments.
 - **Menu Data**: Must store item names, descriptions, prices, categories, and image URLs.
 - **Reservation Data**: Must store booking details, guest counts, assigned tables, and status.
 - **Transaction Data**: Must accurately record payment statuses and invoice details.
 
-## 7. Constraints
+## 8. Constraints
 - The backend must be built using Express.js and Node.js.
 - The frontend must be built using React.
 - The database must be MongoDB.
 - Digital Payments (F16) must remain a simulated workflow without integrating an actual external payment gateway like SSLCommerz.
 
-## 8. Assumptions
+## 9. Assumptions
 - The restaurant operates in a single timezone.
 
-## 9. Revision History
+## 10. Revision History
 **Version**: v0.9 (Pre-Final Draft)
 **Changes**: Updated testing requirements, added refund extensions, and populated screenshot structure.
 
-## 10. System Interfaces (Screenshots)
+## 11. System Interfaces (Screenshots)
 Please insert the captured screenshots for each feature below:
 - **[F01]** Restaurant Menu: `[Insert F01_screenshot.png]`
 - **[F02]** Search and Filter: `[Insert F02_screenshot.png]`
@@ -102,5 +105,5 @@ Please insert the captured screenshots for each feature below:
 - **[F19]** Reports: `[Insert F19_screenshot.png]`
 - **[F20]** Loyalty Points: `[Insert F20_screenshot.png]`
 
-## 11. Testing
+## 12. Testing
 The application has 5 core test suites (Authentication, Reservations, Reservation History, Defects, Integrity, Refund). All 75 tests are currently passing. See `TESTING.md` for full test plan details.

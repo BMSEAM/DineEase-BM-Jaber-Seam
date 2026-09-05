@@ -44,6 +44,7 @@ The application supports three distinct user roles:
 The project uses a monorepo structure managed via npm workspaces:
 - `client/`: React frontend application
 - `server/`: Express backend API
+- `docs/diagrams/`: See the [System Architecture Diagram](docs/diagrams/system-architecture.md) for the data flow pipeline.
 
 ## Installation & Setup
 1. Clone the repository
