@@ -3,6 +3,23 @@ import { env } from './env.js';
 
 let memoryServer = null;
 
+async function seedMemoryDatabase() {
+  const { User, MenuCategory, MenuItem, RestaurantTable } = await import('../models/index.js');
+  const { users, categories, menuItems, tables } = await import('../seed/seedData.js');
+
+  await User.create(users);
+  const createdCategories = await MenuCategory.insertMany(categories);
+  const categoryByName = new Map(createdCategories.map((category) => [category.name, category._id]));
+
+  await MenuItem.insertMany(
+    menuItems.map(({ categoryName, ...item }) => ({
+      ...item,
+      category: categoryByName.get(categoryName),
+    }))
+  );
+  await RestaurantTable.insertMany(tables);
+}
+
 /**
  * Connect to MongoDB. Called from server.js at boot.
  * The connection URI is read from the environment — never hard-coded.
@@ -36,10 +53,8 @@ export async function connectDB(uri = env.mongoUri) {
     console.log(`[db] In-memory MongoDB connected: ${conn.connection.host}/${conn.connection.name}`);
     // eslint-disable-next-line no-console
     console.log('[db] ⚠ Data will NOT persist after server restart.');
-    
-    // Auto-seed the memory database
-    await runSeed();
-    
+
+    await seedMemoryDatabase();
     return conn;
   }
 }
